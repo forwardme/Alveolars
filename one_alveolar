@@ -9,8 +9,12 @@ class one_alveolar:
     self.alvp = VoltoP(self.volume)
     self.flowvelo = (self.inpressure - self.alvp)/self.impedance
     deltavol = self.flowvelo*timestep
-    if deltavol < 0.02:
-      self.isin = False
-    else:
-      self.volume += deltavol
+    self.volume += deltavol
     
+    if abs(deltavol) < 0.02:
+      if self.isin == True:
+        self.isin = False
+        self.inpressure = 0
+      else:
+        self.isn = True
+        self.inpressure = inpressure
