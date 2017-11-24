@@ -1,15 +1,15 @@
 class one_alveolar:
-  def __init__ (self, initialvolume = 1, impedance, voltocom, timestep, deltapressure):
+  def __init__ (self, initialvolume = 1, impedance, VoltoP, timestep, inpressure):
     self.volume = initialvolume
     self.impedance = impedance
-    self.deltapressure = pressure
-  def setcompliance:
-    self.compliance = voltocom(self.volume)
+    self.inpressure = inpressure
+    self.isin = True
     
   def update:
-    self.setcompliance()
-    deltavol = self.pressure*self.compliance
-    if deltavol < 0.2:
+    self.alvp = VoltoP(self.volume)
+    self.flowvelo = (self.inpressure - self.alvp)/self.impedance
+    deltavol = self.flowvelo*timestep
+    if deltavol < 0.02:
       self.isin = False
     else:
       self.volume += deltavol
