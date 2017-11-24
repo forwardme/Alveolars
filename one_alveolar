@@ -1,0 +1,11 @@
+class one_alveolar:
+  def __init__ (self, initialvolume = 1, impedance, cpfator, timestep):
+    self.volume = initialvolume
+    self.impedance = impedance
+    
+  def setcompliance:
+    self.compliance = self.volume * cpfator
+    
+  def update:
+    
+    
