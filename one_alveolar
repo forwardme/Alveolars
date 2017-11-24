@@ -1,9 +1,11 @@
 class one_alveolar:
-  def __init__ (self, initialvolume = 1, impedance, VoltoP, timestep, inpressure):
+  def __init__ (self,  impedance, VoltoP, timestep, inpressure,initialvolume = 1):
     self.volume = initialvolume
     self.impedance = impedance
     self.inpressure = inpressure
     self.isin = True
+    self.VoltoP = VoltoP
+    self.timestep = timestep
     
   def update:
     self.alvp = VoltoP(self.volume)
@@ -14,7 +16,8 @@ class one_alveolar:
     if abs(deltavol) < 0.02:
       if self.isin == True:
         self.isin = False
+        self.savedP = self.inpressure
         self.inpressure = 0
       else:
         self.isn = True
-        self.inpressure = inpressure
+        self.inpressure = self.savedP
