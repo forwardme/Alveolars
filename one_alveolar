@@ -10,7 +10,7 @@ class one_alveolar:
   def update:
     self.alvp = VoltoP(self.volume)
     self.flowvelo = (self.inpressure - self.alvp)/self.impedance
-    deltavol = self.flowvelo*timestep
+    deltavol = self.flowvelo*self.timestep
     self.volume += deltavol
     
     if abs(deltavol) < 0.02:
