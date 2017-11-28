@@ -1,5 +1,5 @@
 class one_alveolar:
-  def __init__ (self, impedance, VoltoP, timestep, inpressure, initialvolume = 1):
+  def __init__ (self, impedance, VoltoP, timestep, restime,inpressure, initialvolume = 1):
     self.volume = initialvolume
     self.impedance = impedance
     self.inpressure = inpressure
@@ -8,6 +8,8 @@ class one_alveolar:
     self.timestep = timestep
     self.flowvelo = 0
     self.inp = self.inpressure
+    self.restime = restime
+    self.looptime = 0
     
   def update(self):
     self.alvp = self.VoltoP(self.volume)
