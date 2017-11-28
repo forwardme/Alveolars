@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 
 
 class one_alveolar:
-  def __init__ (self, impedance, VoltoP, timestep, inpressure, initialvolume = 1):
+  def __init__ (self, impedance, VoltoP, timestep, restime,inpressure, initialvolume = 1):
     self.volume = initialvolume
     self.impedance = impedance
     self.inpressure = inpressure
@@ -11,21 +11,35 @@ class one_alveolar:
     self.timestep = timestep
     self.flowvelo = 0
     self.inp = self.inpressure
+    self.restime = restime
+    self.looptime = 0
     
   def update(self):
+    
     self.alvp = self.VoltoP(self.volume)
     self.flowvelo = (self.inp - self.alvp)/self.impedance
     deltavol = self.flowvelo*self.timestep
     self.volume += deltavol
-    if abs(deltavol) < 0.02:
-        self.inp = 0 if self.isin == True else self.inpressure
-        self.isin = True if not self.isin else False
+    self.looptime += self.timestep
+    #inspiration and expiration change section
+    #auto interchange
+    #if abs(deltavol) < 0.02:
+    #    self.inp = 0 if self.isin == True else self.inpressure
+    #    self.isin = True if not self.isin else False
+    #end inspiration change
+    if deltavol>0 and deltavol< 0.02:
+      self.inp = 0
+    #end expiration change
+    if self.restime-self.looptime<0.01:
+      self.looptime = 0
+      self.inp = self.inpressure
+
 
 def VolP(vol):
-	return vol*0.85
+	return vol*1.2 - 1
 
 
-alv = one_alveolar(1,VolP,0.1,10)
+alv = one_alveolar(1,VolP,0.1,15,10)
 
 vol = []
 vel = []
