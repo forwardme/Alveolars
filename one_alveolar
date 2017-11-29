@@ -1,5 +1,5 @@
 class one_alveolar:
-  def __init__ (self, impedance, VoltoP, timestep, restime,inpressure, initialvolume = 1):
+  def __init__ (self, impedance, VoltoP, timestep, restime, intime, inpressure, initialvolume = 1):
     self.initialvolume = initialvolume
     self.volume = self.initialvolume
     self.impedance = impedance
@@ -10,6 +10,7 @@ class one_alveolar:
     self.flowvelo = 0
     self.inp = self.inpressure
     self.restime = restime
+    self.intime = intime
     self.looptime = 0
     
   def update(self):
@@ -24,7 +25,7 @@ class one_alveolar:
     #    self.inp = 0 if self.isin == True else self.inpressure
     #    self.isin = True if not self.isin else False
     #end inspiration change
-    if deltavol>0 and deltavol< 0.02:
+    if deltavol>0 and deltavol< 0.02 and self.looptime>self.intime:
       self.inp = 0
     #end expiration change
     if self.restime-self.looptime<0.01:
